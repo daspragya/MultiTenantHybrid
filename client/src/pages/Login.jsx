@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import api from "../api";
+import styles from "./Login.module.css";
 
 function Login() {
   const [username, setUsername] = useState("");
@@ -47,14 +48,14 @@ function Login() {
   };
 
   return (
-    <div className="container mt-4">
+    <div className={`${styles.container} mt-4`}>
       <h2>{isSignup ? "Signup" : "Login"}</h2>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor="username">Username:</label>
           <input
             type="text"
-            className="form-control"
+            className={`form-control ${styles.input}`}
             id="username"
             name="username"
             value={username}
@@ -65,7 +66,7 @@ function Login() {
           <label htmlFor="password">Password:</label>
           <input
             type="password"
-            className="form-control"
+            className={`form-control ${styles.input}`}
             id="password"
             name="password"
             value={password}
@@ -77,7 +78,7 @@ function Login() {
             <label htmlFor="confpassword">Confirm Password:</label>
             <input
               type="password"
-              className="form-control"
+              className={`form-control ${styles.input}`}
               id="confpassword"
               name="confpassword"
               value={confpassword}
@@ -86,23 +87,29 @@ function Login() {
           </div>
         )}
         <div className="mt-3">
-          <button type="submit" className="btn btn-primary">
+          <button type="submit" className={`btn btn-primary ${styles.button}`}>
             {isSignup ? "Signup" : "Login"}
           </button>
         </div>
       </form>
-      <p className="mt-3">
+      <p className={`mt-3 ${styles.toggleMessage}`}>
         {isSignup ? (
           <span>
             Already have an account?{" "}
-            <button className="btn btn-link p-0" onClick={handleToggleSignup}>
+            <button
+              className={`btn btn-link p-0 ${styles.toggleButton}`}
+              onClick={handleToggleSignup}
+            >
               Continue
             </button>
           </span>
         ) : (
           <span>
             Don't have an account?{" "}
-            <button className="btn btn-link p-0" onClick={handleToggleSignup}>
+            <button
+              className={`btn btn-link p-0 ${styles.toggleButton}`}
+              onClick={handleToggleSignup}
+            >
               Signup
             </button>
           </span>

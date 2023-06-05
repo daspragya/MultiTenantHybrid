@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import api from "../api";
+import styles from "./Login.module.css";
 
 function LoginSupplier() {
   const [supplierNames, setSupplierNames] = useState([]);
@@ -49,16 +50,18 @@ function LoginSupplier() {
   };
 
   return (
-    <div className="container mt-4">
+    <div className={`${styles.container} mt-4`}>
       <h2>Login</h2>
       {noSuppliers ? (
-        <p>You aren't registered with any supplier. Contact admin.</p>
+        <p className={`text-danger ${styles.errorMessage}`}>
+          You aren't registered with any supplier. Contact admin.
+        </p>
       ) : (
         <form onSubmit={handleSubmit}>
           <div className="form-group">
             <label htmlFor="username">Supplier name:</label>
             <select
-              className="form-control"
+              className={`form-control ${styles.select}`}
               id="name"
               name="name"
               value={selectedSupplier}
@@ -76,7 +79,7 @@ function LoginSupplier() {
             <label htmlFor="password">Password:</label>
             <input
               type="password"
-              className="form-control"
+              className={`form-control ${styles.input}`}
               id="password"
               name="password"
               value={password}
@@ -84,15 +87,21 @@ function LoginSupplier() {
             />
           </div>
           <div className="mt-3">
-            <button type="submit" className="btn btn-primary">
+            <button
+              type="submit"
+              className={`btn btn-primary ${styles.button}`}
+            >
               Login
             </button>
           </div>
         </form>
       )}
-      <p className="mt-3">
+      <p className={`mt-3 ${styles.goBack}`}>
         Want to go back to Login Page?{" "}
-        <button className="btn btn-link p-0" onClick={handleGoBack}>
+        <button
+          className={`btn btn-link p-0 ${styles.backButton}`}
+          onClick={handleGoBack}
+        >
           Back
         </button>
       </p>

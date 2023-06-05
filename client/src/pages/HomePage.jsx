@@ -16,8 +16,7 @@ class FirstPage extends Component {
     return (
       <Container>
         <WelcomeMessage>
-          Welcome to Your Task Manager! Use the navigation bar to manage your
-          tasks.
+          Welcome to Supplier Hub! Use the navigation bar to manage your items.
         </WelcomeMessage>
       </Container>
     );
