@@ -76,7 +76,6 @@ export const authHeader = () => {
 api.interceptors.request.use(
   (config) => {
     const headers = apis.authHeader();
-    console.log(headers);
     config.headers = headers;
     return config;
   },

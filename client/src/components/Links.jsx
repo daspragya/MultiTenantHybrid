@@ -35,7 +35,7 @@ function Links() {
   return (
     <React.Fragment>
       <Link to="/" className="navbar-brand">
-        TODO Application
+        Supplier Hub
       </Link>
       <Collapse>
         <List>

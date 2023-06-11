@@ -66,7 +66,6 @@ class ItemsList extends Component {
     await api
       .getAllItems()
       .then((items) => {
-        console.log(items);
         this.setState({
           items: items.data.data,
           isLoading: false,
