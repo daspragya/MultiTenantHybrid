@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 
-import api from "../api";
 import "./Table.css";
+import api from "../api";
 
 const Update = styled.div`
   color: #ef9b0f;
@@ -34,16 +34,20 @@ class UpdateItem extends Component {
 }
 
 class DeleteItem extends Component {
-  deleteUser = (event) => {
+  deleteUser = async (event) => {
     event.preventDefault();
 
     if (
-      window.confirm(
-        `Do you want to delete the task ${this.props.name} permanently?`
-      )
+      window.confirm(`Do you want to delete ${this.props.name} permanently?`)
     ) {
-      api.deleteItemById(this.props.id);
-      window.location.reload();
+      try {
+        await api.deleteItemById(this.props.id);
+        window.alert(`${this.props.name} deleted successfully.`);
+        window.location.reload();
+      } catch (error) {
+        console.log(error);
+        window.alert(`Failed to delete ${this.props.name}.`);
+      }
     }
   };
 
@@ -61,20 +65,20 @@ class ItemsList extends Component {
       isLoading: false,
     };
   }
+
   componentDidMount = async () => {
     this.setState({ isLoading: true });
-    await api
-      .getAllItems()
-      .then((items) => {
-        this.setState({
-          items: items.data.data,
-          isLoading: false,
-        });
-      })
-      .catch((err) => {
-        console.log(err.response.data.message);
-      });
+    try {
+      const res = await api.getAllItems();
+      const items = res.data.data;
+      this.setState({ items, isLoading: false });
+    } catch (err) {
+      if (err.response.status !== 404) {
+        console.log(err);
+      }
+    }
   };
+
   render() {
     const { items } = this.state;
     if (items.length !== 0) {
@@ -111,7 +115,7 @@ class ItemsList extends Component {
     } else {
       return (
         <div>
-          <Message>No Tasks</Message>
+          <Message>No Items</Message>
         </div>
       );
     }

@@ -12,23 +12,15 @@ const WelcomeMessage = styled.div`
   margin-bottom: 20px;
 `;
 
-const SupplierInfo = styled.div`
-  font-size: 18px;
-  margin-top: 20px;
-`;
+const tenantName = localStorage.getItem("tenantName");
 
 class FirstPage extends Component {
   render() {
-    const supplier = JSON.parse(localStorage.getItem("supplier"));
-    console.log(supplier);
     return (
-      <Container className="container">
+      <Container>
         <WelcomeMessage>
-          Welcome to Supplier Hub! Use the navigation bar to manage your items.
+          Welcome to {tenantName}! Use the navigation bar to manage your tasks.
         </WelcomeMessage>
-        <SupplierInfo>You are registered with the supplier:</SupplierInfo>
-        <SupplierInfo>Name: {supplier.name}</SupplierInfo>
-        <SupplierInfo>Description: {supplier.desc}</SupplierInfo>
       </Container>
     );
   }

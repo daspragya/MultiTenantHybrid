@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import api from "../api";
-
 import styled from "styled-components";
 
 const Title = styled.h1.attrs({
@@ -46,46 +45,44 @@ class ItemsInsert extends Component {
     };
   }
 
-  handleChangeInputName = async (event) => {
+  handleChangeInputName = (event) => {
     const name = event.target.value;
     this.setState({ name });
   };
 
-  handleChangeInputDescription = async (event) => {
-    const desc = event.target.validity.valid
-      ? event.target.value
-      : this.state.desc;
-
+  handleChangeInputDescription = (event) => {
+    const desc = event.target.value;
     this.setState({ desc });
   };
 
-  handleChangeInputPrice = async (event) => {
-    const price = event.target.validity.valid
-      ? event.target.value
-      : this.state.price;
-
+  handleChangeInputPrice = (event) => {
+    const price = event.target.value;
     this.setState({ price });
   };
 
   handleIncludeItem = async () => {
     const { name, desc, price } = this.state;
-    const payload = { name, desc, price };
 
-    await api.insertItem(payload).then((res) => {
-      window.alert(`Item inserted successfully`);
+    try {
+      const payload = { name, desc, price };
+      await api.insertItem(payload);
+      window.alert("Item inserted successfully");
       this.setState({
         name: "",
         desc: "",
         price: 0,
       });
-    });
+    } catch (error) {
+      console.log(error);
+      window.alert("Error inserting task");
+    }
   };
 
   render() {
     const { name, desc, price } = this.state;
     return (
       <Wrapper>
-        <Title>Create Task</Title>
+        <Title>Create Item</Title>
 
         <Label>Name: </Label>
         <InputText
@@ -100,6 +97,7 @@ class ItemsInsert extends Component {
           value={desc}
           onChange={this.handleChangeInputDescription}
         />
+
         <Label>Price: </Label>
         <InputText
           type="number"

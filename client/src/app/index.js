@@ -1,14 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { NavBar } from "../components";
-import { ItemsList, ItemsInsert, ItemsUpdate } from "../pages";
-import Login from "../pages/Login";
-import LoginSupplier from "../pages/LoginSupplier";
 import styled from "styled-components";
-import { getCurrentSupplier, getCurrentUser } from "../api";
-import HomePage from "../pages/HomePage";
-
+import { NavBar } from "../components";
+import { ItemsList, ItemsInsert, ItemsUpdate, HomePage, Login } from "../pages";
+import { getCurrentUser } from "../api";
 const CenteredMessage = styled.p`
   text-align: center;
   margin-top: 100px;
@@ -16,25 +12,33 @@ const CenteredMessage = styled.p`
 `;
 
 function App() {
-  const signed = getCurrentUser();
-  const supplierSigned = getCurrentSupplier();
+  const [signed, setSigned] = useState(null);
+
+  useEffect(() => {
+    const fetchSignedStatus = async () => {
+      try {
+        const status = getCurrentUser();
+        setSigned(status);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchSignedStatus();
+  }, []);
 
   return (
     <Router>
       <React.Fragment>
-        {signed && supplierSigned && <NavBar />}
+        {signed && <NavBar />}
         <div className="container">
           <Routes>
-            {signed && supplierSigned ? (
+            {signed ? (
               <>
                 <Route path="/" element={<HomePage />} />
                 <Route path="/items/list" element={<ItemsList />} />
                 <Route path="/items/create" element={<ItemsInsert />} />
                 <Route path="/items/update/:id" element={<ItemsUpdate />} />
-              </>
-            ) : signed ? (
-              <>
-                <Route path="/" element={<LoginSupplier />} />
               </>
             ) : (
               <>

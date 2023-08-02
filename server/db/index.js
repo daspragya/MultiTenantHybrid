@@ -1,11 +1,27 @@
 const mongoose = require("mongoose");
 
-mongoose
-  .connect("mongodb://127.0.0.1:27017/ITEMS", { useNewUrlParser: true })
-  .catch((e) => {
-    console.error("Connection error", e.message);
-  });
+const dotenv = require("dotenv");
+dotenv.config();
 
-const db = mongoose.connection;
+const createConnection = (tenantID) => {
+  mongoose
+    .connect(`${process.env.DATABASE_CONNECTION_STRING}/${tenantID}_ITEMS`, {
+      useNewUrlParser: true,
+    })
+    .catch((e) => {
+      console.error("Connection error", e.message);
+    });
+  return mongoose.connection;
+};
 
-module.exports = db;
+const removeConnection = () => {
+  try {
+    mongoose.connection.close();
+  } catch {
+    (e) => {
+      console.error("Connection error", e.message);
+    };
+  }
+};
+
+module.exports = { createConnection, removeConnection };
