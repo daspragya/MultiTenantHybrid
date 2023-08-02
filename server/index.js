@@ -11,7 +11,7 @@ const PORT = 8001;
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 const corsOptions = {
-  origin: "https://fullmulti.onrender.com",
+  origin: "https://hybridmulti.onrender.com",
 };
 
 app.use(cors(corsOptions));
