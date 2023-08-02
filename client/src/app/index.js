@@ -5,6 +5,9 @@ import styled from "styled-components";
 import { NavBar } from "../components";
 import { ItemsList, ItemsInsert, ItemsUpdate, HomePage, Login } from "../pages";
 import { getCurrentUser } from "../api";
+import { disableReactDevTools } from "@fvilers/disable-react-devtools";
+
+if (process.env.NODE_ENV === "production") disableReactDevTools();
 const CenteredMessage = styled.p`
   text-align: center;
   margin-top: 100px;

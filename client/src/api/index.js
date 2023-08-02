@@ -1,11 +1,11 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://localhost:8001/api",
+  baseURL: "https://hybridmultitenant-api.onrender.com/api",
 });
 
 const auth = axios.create({
-  baseURL: "http://localhost:8001/auth",
+  baseURL: "https://hybridmultitenant-api.onrender.com/auth",
 });
 
 export const insertItem = (payload) => api.post(`/item`, payload);

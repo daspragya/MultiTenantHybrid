@@ -10,7 +10,11 @@ const PORT = 8001;
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(cors());
+const corsOptions = {
+  origin: "https://fullmulti.onrender.com",
+};
+
+app.use(cors(corsOptions));
 
 app.use("/api", itemRouter);
 app.use("/auth", authRouter);
